@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ErgonomicGPT Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>ErgonomicGPT</h1>
+      <p class="tagline">Save your neck, don't bow to AI</p>
+    </div>
+
+    <!-- Settings -->
+    <div class="settings">
+      <h2>ChatGPT Settings</h2>
+
+      <!-- Chatbox Position Toggle -->
+      <div class="setting-item">
+        <div class="setting-info">
+          <label for="chatboxTop" class="setting-label">
+            Move chatbox to top
+          </label>
+          <p class="setting-description">
+            Places the input box at the top of the page for better ergonomics
+          </p>
+        </div>
+        <div class="toggle-container">
+          <label class="toggle">
+            <input type="checkbox" id="chatboxTop" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Message Order Toggle -->
+      <div class="setting-item">
+        <div class="setting-info">
+          <label for="reverseMessages" class="setting-label">
+            Reverse message order
+          </label>
+          <p class="setting-description">
+            Shows newest messages at the top (scroll down for older messages)
+          </p>
+        </div>
+        <div class="toggle-container">
+          <label class="toggle">
+            <input type="checkbox" id="reverseMessages" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="version">Version 1.0.0</div>
+      <div class="platform-support">
+        <span class="platform-badge active">ChatGPT</span>
+        <span class="platform-badge coming-soon" title="Coming soon">Claude</span>
+        <span class="platform-badge coming-soon" title="Coming soon">Gemini</span>
+        <span class="platform-badge coming-soon" title="Coming soon">Perplexity</span>
+      </div>
+      <div class="github-link">
+        <a href="https://github.com/moeinxyz/ergonomic-gpt" target="_blank">https://github.com/moeinxyz/ergonomic-gpt</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
