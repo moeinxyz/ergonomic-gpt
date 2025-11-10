@@ -1,0 +1,55 @@
+name: Test ErgonomicGPT Extension
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: tests/package-lock.json
+
+    - name: Install dependencies
+      working-directory: ./tests
+      run: npm ci
+
+    - name: Install Chrome
+      uses: browser-actions/setup-chrome@v1
+      with:
+        chrome-version: stable
+
+    - name: Run tests
+      working-directory: ./tests
+      run: npm test
+      env:
+        HEADLESS: true
+        CI: true
+
+    - name: Upload test artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-screenshots
+        path: tests/screenshots/
+        retention-days: 7
+
+    - name: Upload coverage
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage
+        path: tests/coverage/
+        retention-days: 7
