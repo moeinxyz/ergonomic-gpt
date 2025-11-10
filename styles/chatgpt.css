@@ -1,0 +1,149 @@
+/**
+ * ErgonomicGPT - ChatGPT Styles
+ *
+ * Reverses chat layout to prevent neck strain
+ * Based on DOM analysis from ChatGPTExample.html (2025)
+ *
+ * DOM Structure:
+ * <main>
+ *   <div#thread>
+ *     <div.composer-parent> (flex column container)
+ *       <header#page-header> (sticky header)
+ *       <div> (messages area with overflow)
+ *         <div.flex.flex-col.text-sm> (messages container)
+ *           <article> (individual messages)
+ *       <form> (chat composer)
+ *
+ * Two independent features:
+ * 1. ergonomic-chatbox-top: Move composer to top
+ * 2. ergonomic-reverse-messages: Reverse message order (newest first)
+ */
+
+/* ============================================
+   FEATURE 1: Move Chatbox to Top
+   ============================================ */
+
+/**
+ * Reverse the composer-parent container
+ * This moves the form (at bottom) to appear at top
+ */
+html.ergonomic-chatbox-top div.composer-parent {
+  flex-direction: column-reverse !important;
+}
+
+/**
+ * Fix the sticky header when chatbox is at top
+ * Convert from sticky positioning to relative
+ * Otherwise header stays at old position
+ */
+html.ergonomic-chatbox-top header#page-header {
+  position: relative !important;
+  top: auto !important;
+}
+
+/**
+ * Ensure composer has proper background
+ * Prevents transparency issues
+ */
+html.ergonomic-chatbox-top form[data-type="unified-composer"],
+html.ergonomic-chatbox-top .composer-parent > div:has(form) {
+  background: var(--main-surface-primary, white) !important;
+  z-index: 10 !important;
+}
+
+/**
+ * Dark mode background for composer
+ */
+html.ergonomic-chatbox-top.dark form[data-type="unified-composer"],
+html.ergonomic-chatbox-top.dark .composer-parent > div:has(form),
+html.dark.ergonomic-chatbox-top form[data-type="unified-composer"],
+html.dark.ergonomic-chatbox-top .composer-parent > div:has(form) {
+  background: var(--main-surface-primary, #212121) !important;
+}
+
+/* ============================================
+   FEATURE 2: Reverse Message Order
+   ============================================ */
+
+/**
+ * Reverse the messages container
+ * This makes newest messages appear at top
+ */
+html.ergonomic-reverse-messages div.flex.flex-col.text-sm {
+  flex-direction: column-reverse !important;
+}
+
+/**
+ * Swap padding when messages are reversed
+ * Original has pb-25 (6.25rem bottom padding)
+ * When reversed, we need top padding instead
+ */
+html.ergonomic-reverse-messages div.flex.flex-col.text-sm {
+  padding-bottom: 0 !important;
+  padding-top: 6.25rem !important;
+}
+
+/* ============================================
+   ENSURE NO DOUBLE-REVERSAL
+   ============================================ */
+
+/**
+ * Keep individual messages in normal order
+ * Prevent article contents from reversing
+ */
+html.ergonomic-chatbox-top article,
+html.ergonomic-reverse-messages article {
+  flex-direction: column !important;
+}
+
+/**
+ * Keep thinking blocks in their original position
+ * (We're not modifying thinking blocks per requirements)
+ */
+html.ergonomic-chatbox-top article[data-turn="assistant"],
+html.ergonomic-reverse-messages article[data-turn="assistant"] {
+  flex-direction: column !important;
+}
+
+/* ============================================
+   COMPATIBILITY & STABILITY
+   ============================================ */
+
+/**
+ * Ensure main container maintains proper height
+ * Prevents layout collapse
+ */
+html.ergonomic-chatbox-top main,
+html.ergonomic-reverse-messages main {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/**
+ * Ensure thread container uses full space
+ */
+html.ergonomic-chatbox-top div#thread,
+html.ergonomic-reverse-messages div#thread {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+}
+
+/**
+ * Maintain proper overflow behavior
+ */
+html.ergonomic-chatbox-top .composer-parent,
+html.ergonomic-reverse-messages .composer-parent {
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/**
+ * Ensure scrollable area for messages works correctly
+ */
+html.ergonomic-chatbox-top div.flex.flex-col:has(> div.overflow-y-auto),
+html.ergonomic-reverse-messages div.flex.flex-col:has(> div.overflow-y-auto) {
+  flex: 1 !important;
+  min-height: 0 !important;
+}
