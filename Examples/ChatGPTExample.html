@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Test Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f7f7f8;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 768px;
+            margin: 0 auto;
+            background: white;
+            overflow: hidden;
+        }
+
+        header#page-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 16px;
+            border-bottom: 1px solid #e5e5e5;
+            z-index: 10;
+        }
+
+        .composer-parent {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .flex-1 {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        #thread {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex.flex-col.text-sm {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.875rem;
+            overflow-y: auto;
+            padding-bottom: 32px;
+        }
+
+        article {
+            padding: 24px 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        article[data-turn="user"] {
+            background: #f7f7f8;
+        }
+
+        article[data-turn="assistant"] {
+            background: white;
+        }
+
+        .message-content {
+            line-height: 1.6;
+        }
+
+        form[data-type="unified-composer"] {
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        textarea[name="prompt-textarea"] {
+            width: 100%;
+            min-height: 52px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            resize: none;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        textarea[name="prompt-textarea"]:focus {
+            outline: none;
+            border-color: #10a37f;
+        }
+
+        .thinking-block {
+            background: #f0f9ff;
+            border-left: 3px solid #3b82f6;
+            padding: 12px;
+            margin: 8px 0;
+            font-style: italic;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <main id="main">
+        <header id="page-header">
+            <h1>ChatGPT Test Example</h1>
+        </header>
+
+        <div class="composer-parent">
+            <div class="flex-1">
+                <div id="thread">
+                    <div class="flex flex-col text-sm">
+                        <!-- Message 1: User -->
+                        <article data-testid="conversation-turn-1" data-turn="user">
+                            <div class="message-content">
+                                <p>Hello! Can you help me understand how flexbox works in CSS?</p>
+                            </div>
+                        </article>
+
+                        <!-- Message 2: Assistant with thinking -->
+                        <article data-testid="conversation-turn-2" data-turn="assistant">
+                            <div class="thinking-block" data-message-model-slug="gpt-5-thinking">
+                                Thinking: The user wants to learn about CSS flexbox. I should provide a clear, structured explanation with examples.
+                            </div>
+                            <div class="message-content">
+                                <p>I'd be happy to explain CSS Flexbox!</p>
+                                <p>Flexbox is a one-dimensional layout method for arranging items in rows or columns. Here are the key concepts:</p>
+                                <ul>
+                                    <li><strong>Flex Container</strong>: The parent element with <code>display: flex</code></li>
+                                    <li><strong>Flex Items</strong>: The children of the flex container</li>
+                                    <li><strong>Main Axis</strong>: The primary axis (horizontal by default)</li>
+                                    <li><strong>Cross Axis</strong>: The perpendicular axis</li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <!-- Message 3: User -->
+                        <article data-testid="conversation-turn-3" data-turn="user">
+                            <div class="message-content">
+                                <p>Can you show me a practical example?</p>
+                            </div>
+                        </article>
+
+                        <!-- Message 4: Assistant -->
+                        <article data-testid="conversation-turn-4" data-turn="assistant">
+                            <div class="message-content">
+                                <p>Sure! Here's a simple example:</p>
+                                <pre><code>.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item {
+  flex: 1;
+}</code></pre>
+                                <p>This creates a flexible container where items are spaced evenly and centered vertically.</p>
+                            </div>
+                        </article>
+
+                        <!-- Message 5: User -->
+                        <article data-testid="conversation-turn-5" data-turn="user">
+                            <div class="message-content">
+                                <p>What about flex-direction?</p>
+                            </div>
+                        </article>
+
+                        <!-- Message 6: Assistant -->
+                        <article data-testid="conversation-turn-6" data-turn="assistant">
+                            <div class="message-content">
+                                <p><code>flex-direction</code> controls the direction of flex items:</p>
+                                <ul>
+                                    <li><code>row</code> (default): Items flow left to right</li>
+                                    <li><code>column</code>: Items stack top to bottom</li>
+                                    <li><code>row-reverse</code>: Items flow right to left</li>
+                                    <li><code>column-reverse</code>: Items stack bottom to top</li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <form data-type="unified-composer">
+                <textarea
+                    name="prompt-textarea"
+                    placeholder="Message ChatGPT"
+                    rows="1"
+                ></textarea>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
