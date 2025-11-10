@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ergonomic-gpt-tests
+    volumes:
+      # Mount the entire project for live updates
+      - ..:/app
+      # Mount extension files
+      - ../manifest.json:/app/manifest.json:ro
+      - ../content-scripts:/app/content-scripts:ro
+      - ../styles:/app/styles:ro
+      - ../popup:/app/popup:ro
+      - ../icons:/app/icons:ro
+      # Keep node_modules in container (better performance)
+      - /app/node_modules
+    environment:
+      # Headless mode
+      - HEADLESS=true
+      # Test configuration
+      - TEST_TIMEOUT=30000
+      - SCREENSHOT_DIR=/app/tests/screenshots
+      - BASELINE_DIR=/app/tests/visual/baseline
+    working_dir: /app/tests
+    command: npm test
+    # Use SHM size for Chrome stability
+    shm_size: '2gb'
+
+  # Interactive shell for debugging
+  test-shell:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ergonomic-gpt-shell
+    volumes:
+      - ..:/app
+      - /app/node_modules
+    environment:
+      - HEADLESS=false
+    working_dir: /app/tests
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+    shm_size: '2gb'
