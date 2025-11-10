@@ -8,6 +8,7 @@ coverage/
 screenshots/
 *.png
 !icons/*.png
+!images/*.png
 *.jpg
 *.jpeg
 

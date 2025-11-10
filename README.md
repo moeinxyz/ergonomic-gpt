@@ -4,6 +4,10 @@
 
 A Chrome extension that reverses AI chat interfaces to prevent neck strain by moving the chat input to the top and optionally reversing message order.
 
+## Preview
+
+![ErgonomicGPT in action](images/screenshot.png)
+
 ## Problem
 
 When using AI chat interfaces like ChatGPT, the chat input box is at the bottom of the page. As new messages appear, you constantly lean forward and look down to read them, causing neck strain and poor posture during extended usage.
