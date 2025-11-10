@@ -40,7 +40,3 @@ logs/
 # Build artifacts
 dist/
 build/
-
-# Documentation (excluded from commits as per user request)
-*.md
-!tests/**/*.md
